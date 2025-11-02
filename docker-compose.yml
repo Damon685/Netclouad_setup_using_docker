@@ -1,5 +1,3 @@
-version: '3'
-
 volumes:
   nextcloud_data:
   db_data:
@@ -31,7 +29,7 @@ services:
     hostname: nextcloud
     restart: unless-stopped
     ports:
-      - "8080:80"
+      - "0.0.0.0:8080:80"
     depends_on:
       - db
     environment:
@@ -41,6 +39,8 @@ services:
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - NEXTCLOUD_ADMIN_USER=${NEXTCLOUD_ADMIN_USER}
       - NEXTCLOUD_ADMIN_PASSWORD=${NEXTCLOUD_ADMIN_PASSWORD}
+      - OVERWRITEHOST=172.23.192.1:8080
+      - OVERWRITEPROTOCOL=http
     volumes:
       - nextcloud_data:/var/www/html
     networks:
